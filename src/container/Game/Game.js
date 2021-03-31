@@ -34,9 +34,12 @@ function generateCards(count) {
 
 
 export default function Game({ fieldHeight = 2 }) {
+	
 	var totalCards = fieldWidth * fieldHeight;
 	console.log('dsadas', totalCards)
 
+	const [count, setcount ] = useState(0);
+	const [tries, setTries] = useState(0);
 	const [cards, setCards] = useState(generateCards(totalCards));
 	const [canFlip, setCanFlip] = useState(false);
 	const [firstCard, setFirstCard] = useState(null);
@@ -82,6 +85,8 @@ export default function Game({ fieldHeight = 2 }) {
 		setCardIsFlipped(firstCard.id, false);
 		setCardIsFlipped(secondCard.id, false);
 		resetFirstAndSecondCards();
+		setcount(count+1);
+		setTries(tries+1);
 	}
 	function onFailureGuess() {
 		const firstCardID = firstCard.id;
@@ -93,7 +98,7 @@ export default function Game({ fieldHeight = 2 }) {
 		setTimeout(() => {
 			setCardIsFlipped(secondCardID, true);
 		}, 1200);
-
+		setTries(tries+1);
 		resetFirstAndSecondCards();
 	}
 
@@ -122,8 +127,8 @@ export default function Game({ fieldHeight = 2 }) {
 		fieldWidth = childValue;
 		totalCards = fieldWidth * fieldHeight;
 		setCards(generateCards(totalCards));
-	
-	
+
+
 		console.log(fieldWidth);
 	}
 
@@ -146,12 +151,15 @@ export default function Game({ fieldHeight = 2 }) {
 			<Col span={18}>
 				<div className="game container-md">
 					<div className="cards-container">
-						{cards.map(card => <Card onClick={() => onCardClick(card)} key={card.id} {...card} />)}
+						{cards.map(card => <Card onClick={() => onCardClick(card)} 
+						key={card.id} {...card} />)}
 					</div>
 				</div>
 			</Col>
 			<Col span={6}>
-				<Sidebar Restart={Restart} parentCallback={parentCallback} />
+				<Sidebar restart={Restart} parentCallback={parentCallback} 
+					count={count} total={fieldWidth} tries={tries} 
+				/>
 			</Col>
 		</Row>
 
