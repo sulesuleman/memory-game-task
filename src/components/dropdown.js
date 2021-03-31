@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import { Select } from 'antd';
 
@@ -9,8 +9,8 @@ export default function Dropdown(props) {
 
     // const [pair, setpair] = useState(6) 
 
-    const onTrigger = async(value) =>{
-        console.log("dropdown",value)
+    const onTrigger = async (value) => {
+        console.log("dropdown", value)
         props.parentCallback(value);
     }
 

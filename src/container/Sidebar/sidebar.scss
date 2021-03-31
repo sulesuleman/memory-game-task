@@ -1,11 +1,13 @@
 
 .stats-container{
-	width: 262px;
-	padding: 3%;
+	width: 100%;
+	height:auto; 
+	padding: 3%;	
 	background-color: #FBFBFB;
 }
 
 .score-container{
+	
 	width: 103px;
 	// height: 136px;
 }
@@ -74,7 +76,9 @@ color: #1890FF;
 .option-container{
 	margin-top:28%;
 	height: 152px;
-	width: 220px;;
+	width: auto;
+	// justify-content: space-between;
+	position: relative;
 
 }
 
@@ -105,6 +109,7 @@ color: #1890FF;
 	color: white;
 	background: #1890FF;
 	border-radius: 2px;
-	position: 'absolute';
-	
+	 position: absolute !important;
+	bottom: 2%;
+	left: 1%;
 }

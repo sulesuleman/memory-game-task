@@ -8,9 +8,11 @@ $card-border-radius: 15px;
 }
 
 .card-container, .card, .card .side {
-	width: 100%;
-	height: 100%;
+	width: 133px;
+	height: 145.75px;
+	margin-bottom:4%;
 }
+
 .card-container {
 	cursor: pointer;
 	perspective: 600px;
@@ -22,7 +24,6 @@ $card-border-radius: 15px;
 	transform-style: preserve-3d;
 	box-shadow: 0 0 3px rgba(black, .15);
 	border: 2px solid #bababa;
-
 	.side {
 		-webkit-backface-visibility: hidden;
 		backface-visibility: hidden;
@@ -37,8 +38,8 @@ $card-border-radius: 15px;
 		left: 0;
 		right: 0;
 		bottom: 0;
-		background: linear-gradient(45deg, #1fa5ff 25%, #1053ff 25%, #1053ff 50%, #1fa5ff 50%, #1fa5ff 75%, #1053ff 75%, #1053ff 100%);
-		background-size: 56px 56px;
+		background: url('https://i.pinimg.com/originals/8c/6b/36/8c6b369aea6800a90cc7ce8f210ae586.jpg');
+		background-size: 145.75px 145.75px;
 		&::before, &::after {
 			@include border-radius($card-border-radius - 2);
 			content: "";
@@ -47,7 +48,6 @@ $card-border-radius: 15px;
 			bottom: 0;
 			left: 0;
 			right: 0;
-			background: linear-gradient(#20E4A4, #2CC9CC);
 			opacity: .8;
 		}
 		&::after {

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import uuid from "uuid";
 import deepcopy from "deepcopy";
-import { Row, Col } from 'antd';
+import { Button, Row, Col, List, } from 'antd';
 
 import cardImages from "../../cards";
 
@@ -9,7 +9,10 @@ import Card from "../../components/Card/Card";
 
 import Sidebar from '../../container/Sidebar/sidebar';
 
+
+
 var fieldWidth = 6;
+window.width = 3;
 
 function shuffleArray(array) {
 	return array.sort(() => .5 - Math.random());
@@ -34,17 +37,17 @@ function generateCards(count) {
 
 
 export default function Game({ fieldHeight = 2 }) {
-	
-	var totalCards = fieldWidth * fieldHeight;
-	console.log('dsadas', totalCards)
 
-	const [count, setcount ] = useState(0);
+	var totalCards = fieldWidth * fieldHeight;
+
+	const [count, setcount] = useState(0);
 	const [tries, setTries] = useState(0);
 	const [cards, setCards] = useState(generateCards(totalCards));
 	const [canFlip, setCanFlip] = useState(false);
+	const [onRestart, setonRestart] = useState(false)
 	const [firstCard, setFirstCard] = useState(null);
 	const [secondCard, setSecondCard] = useState(null);
-
+	const [cardsLength, setCardsLength] = useState(undefined)
 
 	function setCardIsFlipped(cardID, isFlipped) {
 		setCards(prev => prev.map(c => {
@@ -62,16 +65,16 @@ export default function Game({ fieldHeight = 2 }) {
 		}));
 	}
 
-	// showcase
 	useEffect(() => {
+
 		setTimeout(() => {
 			let index = 0;
 			for (const card of cards) {
-				setTimeout(() => setCardIsFlipped(card.id, true), index++ * 100);
+				setTimeout(() => { setCardIsFlipped(card.id, true); console.log("timer 1 working") }, index++ * 100);
 			}
-			setTimeout(() => setCanFlip(true), cards.length * 100);
+			setTimeout(() => { setCanFlip(true); console.log("timerr 2 working") }, cards.length * 100);
 		}, 5000);
-	}, []);
+	}, [cardsLength, onRestart]);
 
 
 	function resetFirstAndSecondCards() {
@@ -85,9 +88,10 @@ export default function Game({ fieldHeight = 2 }) {
 		setCardIsFlipped(firstCard.id, false);
 		setCardIsFlipped(secondCard.id, false);
 		resetFirstAndSecondCards();
-		setcount(count+1);
-		setTries(tries+1);
+		setcount(count + 1);
+		setTries(tries + 1);
 	}
+
 	function onFailureGuess() {
 		const firstCardID = firstCard.id;
 		const secondCardID = secondCard.id;
@@ -97,15 +101,31 @@ export default function Game({ fieldHeight = 2 }) {
 		}, 1000);
 		setTimeout(() => {
 			setCardIsFlipped(secondCardID, true);
-		}, 1200);
-		setTries(tries+1);
+		}, 1000);
+		setTries(tries + 1);
 		resetFirstAndSecondCards();
 	}
 
 	useEffect(() => {
+		if (cards && cards.length > 0 && firstCard && secondCard) {
+
+			var firstCardIndex = cards.findIndex(obj => obj.id === firstCard.id);
+			var seconCardIndex = cards.findIndex(obj => obj.id === secondCard.id);
+
+		}
 		if (!firstCard || !secondCard)
 			return;
-		(firstCard.imageURL === secondCard.imageURL) ? onSuccessGuess() : onFailureGuess();
+		if (firstCard.imageURL === secondCard.imageURL) {
+			onSuccessGuess();
+			console.log("condition true and indexes", firstCardIndex, seconCardIndex);
+			let dummyArray = [...cards];
+			setCards([]);
+			dummyArray[firstCardIndex] = { ...dummyArray[firstCardIndex], imageURL: "https://wallpapercave.com/wp/wp2646216.jpg" };
+			dummyArray[seconCardIndex] = { ...dummyArray[seconCardIndex], imageURL: "https://wallpapercave.com/wp/wp2646216.jpg" }
+			setCards(dummyArray);
+
+
+		} else { onFailureGuess(); }
 	}, [firstCard, secondCard]);
 
 
@@ -123,46 +143,77 @@ export default function Game({ fieldHeight = 2 }) {
 		(firstCard) ? setSecondCard(card) : setFirstCard(card);
 	}
 
-	function parentCallback(childValue) {
+	async function parentCallback(childValue) {
 		fieldWidth = childValue;
 		totalCards = fieldWidth * fieldHeight;
+		setCardsLength(totalCards);
+		window.width = (fieldWidth * fieldHeight) / 4;
 		setCards(generateCards(totalCards));
+		await setCanFlip(false);
+		console.log({ canFlip })
+		setcount(0);
+		setTries(0);
 
-
-		console.log(fieldWidth);
 	}
 
 	function Restart() {
+		setcount(0);
+		setTries(0);
+		setonRestart(!onRestart);
 		setCards(generateCards(totalCards));
-		setCanFlip(false);
-		setFirstCard(null);
-		setSecondCard(null);
-		setTimeout(() => {
-			let index = 0;
-			for (const card of cards) {
-				setTimeout(() => setCardIsFlipped(card.id, true), index++ * 100);
-			}
-			setTimeout(() => setCanFlip(true), cards.length * 100);
-		}, 5000);
+
+		setCanFlip(true);
 	}
 
 	return (
-		<Row>
-			<Col span={18}>
-				<div className="game container-md">
-					<div className="cards-container">
-						{cards.map(card => <Card onClick={() => onCardClick(card)} 
-						key={card.id} {...card} />)}
+		<>
+			{
+				count === fieldWidth ?
+					<div id="overlay" >
+						<div id="success-msg">Congratulation! You Won</div>
+						<Button className="retry-button" onClick={Restart}> Play Again </Button>
 					</div>
-				</div>
-			</Col>
-			<Col span={6}>
-				<Sidebar restart={Restart} parentCallback={parentCallback} 
-					count={count} total={fieldWidth} tries={tries} 
-				/>
-			</Col>
-		</Row>
+					:
+					<Row >
+						<Col span={18}>
+							{/* <div className="game container-md">
+								<div className="cards-container">
+									{cards.map(card => <Card onClick={() => onCardClick(card)}
+										key={card.id} {...card} />)}
+								</div>
+							</div> */}
+							<div className="game container-md">
+								<div className="cards-container">
+									<List
+										grid={{
+											gutter: 16,
+											xs: 2,
+											sm: 3,
+											md: 4,
+											lg: 4,
+											xl: 4,
+											xxl: 3,
+										}}
+										dataSource={cards}
+										renderItem={card => (
 
+											<Card onClick={() => onCardClick(card)}
+												key={card.id} {...card} />
+
+										)}
+									/>
+								</div>
+							</div>
+						</Col>
+						<Col span={6}>
+							<Sidebar restart={Restart} parentCallback={parentCallback}
+								count={count} total={fieldWidth} tries={tries}
+							/>
+						</Col>
+					</Row>
+			}
+
+		</>
 
 	)
 }
