@@ -13,7 +13,7 @@ export default function Dropdown(props) {
 
     return (
         <>
-            <Select defaultValue="6" onChange={onTrigger}>
+            <Select defaultValue="6" size='small' style={{width:'120px'}} onChange={onTrigger}>
                 <Option value="6">6 pairs</Option>
                 <Option value="9">9 pairs</Option>
                 <Option value="12">12 pairs</Option>

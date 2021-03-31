@@ -22,7 +22,12 @@ export default function Sidebar({ restart, parentCallback, count, total, tries }
             <div className="option-container">
                 <p className="opt-title">Options</p>
                 <div className="select-pair">
-                    <p className="size"> Size</p> <Dropdown parentCallback={parentCallback} />
+                    <div style={{flex:0.2}}>
+                        <p className="size"> Size</p>
+                    </div>
+                    <div style={{flex:0.8}}>
+                        <Dropdown parentCallback={parentCallback} />
+                    </div>
                 </div>
                 <Button className="button" onClick={restart}>Restart</Button>
             </div>

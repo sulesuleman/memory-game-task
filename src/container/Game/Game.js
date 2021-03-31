@@ -172,7 +172,7 @@ export default function Game({ fieldHeight = 2 }) {
 						<Button className="retry-button" onClick={Restart}> Play Again </Button>
 					</div>
 					:
-					<Row >
+					<Row style={{padding:'2%'}}>
 						<Col span={18}>
 							{/* <div className="game container-md">
 								<div className="cards-container">
