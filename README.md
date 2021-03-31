@@ -1,1 +1,1 @@
-Game Deployed on Heroku -> Link - > 
+Game Deployed on Heroku -> Link - > https://flip-memory-game.herokuapp.com/
