@@ -1,19 +1,16 @@
 
 .stats-container{
-	width: 100%;
-	height:auto; 
+	width: 262px;
 	padding: 3%;	
 	background-color: #FBFBFB;
 }
 
 .score-container{
-	
 	width: 103px;
-	// height: 136px;
 }
 
 .title{
-	// height: 27px;
+
 	font-style: normal;
 	font-weight: bold;
 	font-size: 20px;
@@ -23,39 +20,37 @@
 .score{
 	display: flex;
 	flex-direction: row;
-	// height:48px;
+
 	width: auto;
 	justify-content: space-around;
 }
 
 .obtain{
-	// height: 48px;
 	font-style: normal;
 	font-weight: bold;
 	font-size: 35px;
 	line-height: 48px;
-/* identical to box height */
+
 
 color: #1890FF;
 }
 
 .slash{
-	// height: 48px;
 	font-style: normal;
 	font-weight: normal;
 	font-size: 35px;
 	line-height: 48px;
-	/* identical to box height */
+	
 	color: #232527;
 }
 
 .total{
-	// height: 48px;
+	
 	font-style: normal;
 	font-weight: bold;
 	font-size: 35px;
 	line-height: 48px;
-	/* identical to box height */	
+	
 	color: #232527;
 }
 
@@ -76,8 +71,7 @@ color: #1890FF;
 .option-container{
 	margin-top:28%;
 	height: 152px;
-	width: auto;
-	// justify-content: space-between;
+	width: 220px;;
 	position: relative;
 
 }

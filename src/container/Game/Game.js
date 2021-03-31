@@ -70,9 +70,9 @@ export default function Game({ fieldHeight = 2 }) {
 		setTimeout(() => {
 			let index = 0;
 			for (const card of cards) {
-				setTimeout(() => { setCardIsFlipped(card.id, true); console.log("timer 1 working") }, index++ * 100);
+				setTimeout(() => { setCardIsFlipped(card.id, true); }, index++ * 100);
 			}
-			setTimeout(() => { setCanFlip(true); console.log("timerr 2 working") }, cards.length * 100);
+			setTimeout(() => { setCanFlip(true); }, cards.length * 100);
 		}, 5000);
 	}, [cardsLength, onRestart]);
 
@@ -117,7 +117,6 @@ export default function Game({ fieldHeight = 2 }) {
 			return;
 		if (firstCard.imageURL === secondCard.imageURL) {
 			onSuccessGuess();
-			console.log("condition true and indexes", firstCardIndex, seconCardIndex);
 			let dummyArray = [...cards];
 			setCards([]);
 			dummyArray[firstCardIndex] = { ...dummyArray[firstCardIndex], imageURL: "https://wallpapercave.com/wp/wp2646216.jpg" };
@@ -150,7 +149,6 @@ export default function Game({ fieldHeight = 2 }) {
 		window.width = (fieldWidth * fieldHeight) / 4;
 		setCards(generateCards(totalCards));
 		await setCanFlip(false);
-		console.log({ canFlip })
 		setcount(0);
 		setTries(0);
 
@@ -190,8 +188,8 @@ export default function Game({ fieldHeight = 2 }) {
 											xs: 2,
 											sm: 3,
 											md: 4,
-											lg: 4,
-											xl: 4,
+											lg: 6,
+											xl: 6,
 											xxl: 3,
 										}}
 										dataSource={cards}
