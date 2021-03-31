@@ -1,0 +1,13 @@
+@import "~normalize.css";
+
+@import "variables";
+@import "fonts";
+
+@import "grid";
+@import "global";
+
+@import "../../App.scss";
+@import "../../container/Sidebar/sidebar.scss";
+@import "../../components/Card/Card.scss";
+@import "../../container/Game/Game.scss";
+@import 'antd/dist/antd.css';
