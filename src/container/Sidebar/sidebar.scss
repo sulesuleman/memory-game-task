@@ -106,3 +106,11 @@ color: #1890FF;
 	bottom: 2%;
 	left: 1%;
 }
+
+
+@media only screen and (max-width:600px){
+	.stats-container{
+		position:static;
+		// top:0;
+	}
+}

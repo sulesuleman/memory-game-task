@@ -172,8 +172,8 @@ export default function Game({ fieldHeight = 2 }) {
 						<Button className="retry-button" onClick={Restart}> Play Again </Button>
 					</div>
 					:
-					<Row style={{padding:'2%'}}>
-						<Col span={18}>
+					<Row wrap={true}>
+						<Col xs={{span:24,order:2}} sm={{span:18,order:1}}>
 							{/* <div className="game container-md">
 								<div className="cards-container">
 									{cards.map(card => <Card onClick={() => onCardClick(card)}
@@ -203,7 +203,7 @@ export default function Game({ fieldHeight = 2 }) {
 								</div>
 							</div>
 						</Col>
-						<Col span={6}>
+						<Col  xs={{span:24,order:1}}  sm={{span:6,order:2}}>
 							<Sidebar restart={Restart} parentCallback={parentCallback}
 								count={count} total={fieldWidth} tries={tries}
 							/>
